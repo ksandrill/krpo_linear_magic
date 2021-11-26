@@ -15,10 +15,10 @@ class Sender:
             try:
                 resp = requests.post(self.backend_url, json=message)
                 if resp.status_code != 200:
-                    logging.info(message + ' status: ' + str(resp.status_code))
+                    logging.info(' status: ' + str(resp.status_code))
                     print('code', resp.status_code)
                     self.messages_to_send.append(message)
-            except Exception(message + ' was dropped') as error:
+            except Exception('message was dropped') as error:
                 logging.error(error)
                 self.messages_to_send.append(message)
         return
