@@ -1,11 +1,31 @@
-import numpy as np
+import logging
 
-from algos import predict_full_month_sum, get_rest_money_on_month, linear_predict_model
+from algos import predict_full_month_sum, predict_category_sum_distribution, predict_category_items_distribution
+
+PREDICT_SUM_ON_NEXT_MONTH = 1
+PREDICT_CATEGORY_SUM_DIST_ON_NEXT_MONTH = 2
+PREDICT_CATEGORY_ITEMS_DIST_ON_NEXT_MONTH = 3
+
+prediction_functions = {PREDICT_SUM_ON_NEXT_MONTH: predict_full_month_sum,
+                        PREDICT_CATEGORY_SUM_DIST_ON_NEXT_MONTH: predict_category_sum_distribution,
+                        PREDICT_CATEGORY_ITEMS_DIST_ON_NEXT_MONTH: predict_category_items_distribution}
+
+
+def predict(datum):
+    oper_type, data_dic = datum
+    logging.info(datum)
+    predict_func = prediction_functions[oper_type]
+    if predict_func is None:
+        logging.error(oper_type)
+        raise ValueError("incorrect operation type")
+    output = predict_func(data_dic['data'])
+    out = {'user_id': data_dic['user_id'], 'operation_type': oper_type, 'result': output}
+    logging.info(out)
+    return out
 
 
 class Predictor:
-    def __init__(self, types, raw_data_to_predict: list, ready_to_send_messages: list):
-        self.types = types
+    def __init__(self, raw_data_to_predict: list, ready_to_send_messages: list):
         self.raw_data_to_predict = raw_data_to_predict
         self.ready_to_send = ready_to_send_messages
 
@@ -13,23 +33,5 @@ class Predictor:
         # print('do predictor work')
         if self.raw_data_to_predict:
             datum = self.raw_data_to_predict.pop()
-            answer = self.predict(datum)
+            answer = predict(datum)
             self.ready_to_send.append(answer)
-
-    def predict(self, datum):
-        oper_type, data_dic = datum
-        output = None
-        if oper_type == self.types['predict_on_month']:
-            checks_sums = np.array(data_dic['data'])
-            output = predict_full_month_sum(checks_sums)
-        elif oper_type == self.types['calculate_rest_of_money']:
-            checks_sums = np.array(data_dic['data'])
-            predicted_sum = float(data_dic['predicted_sum'])
-            output = get_rest_money_on_month(checks_sums, predicted_sum)
-        elif oper_type == self.types['calculate_next_category_dist']:
-            category_data = data_dic['data']
-            output = {}
-            for category in category_data.keys():
-                predicted_for_category = linear_predict_model(category_data[category], intervals=4)
-                output.update({category: predicted_for_category})
-        return {'user_id': data_dic['user_id'], 'operation_type': oper_type, 'result': output}
