@@ -1,4 +1,4 @@
  
 сборка:docker build -t prediction_server
-запуск: docker run -p 8090:8090 --env BACKEND_URL=http://192.168.0.104:8000/test prediction_server
+запуск: docker run -p 8080:8090 --env BACKEND_URL=http://192.168.0.104:8000/test prediction_server
 в качестве BACKEND_URL указать сервер,куда отправляются ответы на запросы, внутри контейнера приложение живет на 8090 порту
