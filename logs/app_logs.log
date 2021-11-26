@@ -33,3 +33,10 @@
 2021-11-26:11:05:32,607 INFO     [data_sender.py:14] message to send: {'user_id': '42', 'operation_type': 3, 'result': {'category_uid1': 73, 'category_uid2': 74, 'category_uid3': 207}}
 2021-11-26:11:05:32,611 DEBUG    [connectionpool.py:227] Starting new HTTP connection (1): 192.168.0.104:8000
 2021-11-26:11:05:32,614 DEBUG    [connectionpool.py:452] http://192.168.0.104:8000 "POST /test HTTP/1.1" 200 16
+2021-11-26:11:47:01,163 INFO     [_internal.py:225]  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-11-26:11:47:35,633 INFO     [_internal.py:225] 127.0.0.1 - - [26/Nov/2021 11:47:35] "GET /prediction/items_category_distribution HTTP/1.1" 200 -
+2021-11-26:11:47:37,248 INFO     [predictor.py:16] (3, {'user_id': '42', 'data': {'category_uid1': [2, 3, 4, 23, 45], 'category_uid2': [5, 6, 7, 8, 10, 53], 'category_uid3': [4, 5, 76, 12]}})
+2021-11-26:11:47:37,250 INFO     [predictor.py:23] {'user_id': '42', 'operation_type': 3, 'result': {'category_uid1': 73, 'category_uid2': 74, 'category_uid3': 207}}
+2021-11-26:11:47:41,227 INFO     [data_sender.py:14] message to send: {'user_id': '42', 'operation_type': 3, 'result': {'category_uid1': 73, 'category_uid2': 74, 'category_uid3': 207}}
+2021-11-26:11:47:41,229 DEBUG    [connectionpool.py:227] Starting new HTTP connection (1): 192.168.0.104:8000
+2021-11-26:11:47:41,232 DEBUG    [connectionpool.py:452] http://192.168.0.104:8000 "POST /test HTTP/1.1" 200 16

@@ -1,7 +1,7 @@
-from data_sender import Sender
-from periodic_task import PeriodicTask
-from predictor import Predictor, PREDICT_SUM_ON_NEXT_MONTH, PREDICT_CATEGORY_SUM_DIST_ON_NEXT_MONTH, \
+from worker_threads.predictor import Predictor, PREDICT_SUM_ON_NEXT_MONTH, PREDICT_CATEGORY_SUM_DIST_ON_NEXT_MONTH, \
     PREDICT_CATEGORY_ITEMS_DIST_ON_NEXT_MONTH
+from worker_threads.data_sender import Sender
+from worker_threads.periodic_task import PeriodicTask
 
 
 class DataScheduler:
@@ -25,4 +25,3 @@ class DataScheduler:
 
     def add_data_predict_item_category_distribution(self, data_dic):
         self.raw_data_to_predict.append((PREDICT_CATEGORY_ITEMS_DIST_ON_NEXT_MONTH, data_dic))
-

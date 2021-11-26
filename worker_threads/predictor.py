@@ -1,6 +1,6 @@
 import logging
 
-from algos import predict_full_month_sum, predict_category_sum_distribution, predict_category_items_distribution
+from model.algos import predict_full_month_sum, predict_category_sum_distribution, predict_category_items_distribution
 
 PREDICT_SUM_ON_NEXT_MONTH = 1
 PREDICT_CATEGORY_SUM_DIST_ON_NEXT_MONTH = 2

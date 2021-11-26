@@ -2,7 +2,7 @@ import logging
 
 from flask import Flask, request, make_response
 
-from data_scheduler import DataScheduler
+from worker_threads.data_scheduler import DataScheduler
 
 
 def init_flask() -> Flask:
