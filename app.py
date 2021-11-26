@@ -47,4 +47,4 @@ if __name__ == '__main__':
         raise Exception('please set BACKEND_URL')
     data_scheduler = DataScheduler(backend_url=backend_url)
     app_ = init_flask()
-    app_.run(host="0.0.0.0", port=8080, debug=False)
+    app_.run(host="0.0.0.0", port=8090, debug=False)
