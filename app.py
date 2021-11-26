@@ -1,4 +1,5 @@
 import logging
+import os
 
 from flask import Flask, request, make_response
 
@@ -36,12 +37,14 @@ def init_flask() -> Flask:
     return app
 
 
-data_scheduler = DataScheduler()
-
 logging.basicConfig(format='%(asctime)s,%(msecs)d %(levelname)-8s [%(filename)s:%(lineno)d] %(message)s',
                     datefmt='%Y-%m-%d:%H:%M:%S',
                     level=logging.DEBUG, filename='logs/app_logs.log')
 
 if __name__ == '__main__':
+    backend_url = os.environ.get("BACKEND_URL")
+    if not backend_url:
+        raise Exception('please set BACKEND_URL')
+    data_scheduler = DataScheduler(backend_url=backend_url)
     app_ = init_flask()
-    app_.run(debug=False)
+    app_.run(port=8080, debug=False)
